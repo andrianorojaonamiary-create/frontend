@@ -75,6 +75,9 @@ const App = () => {
 
   if (loading) return <div className="app">Chargement des tâches...</div>;
 
+  /*  */
+    const filteredTasks = getFilteredTasks();
+
   return (
     <div className="app">
       <header className="header">
@@ -83,20 +86,15 @@ const App = () => {
       </header>
 
       <div className="main-content">
-        {/* Colonne gauche : formulaire */}
         <div className="form-col">
           <div className="section-title"><img src={plus} alt="Ajout" />Ajouter une nouvelle tâche</div>
-          <TaskForm
-            onSubmit={addTask}
-            editingTask={editingTask}
-            onUpdate={updateTask}
-          />
+          <TaskForm onSubmit={addTask} editingTask={editingTask} onUpdate={updateTask} />
         </div>
 
-        {/* Colonne droite : liste */}
         <div className="list-col">
           <div className="section-title"><img src={liste} alt="Liste" />Liste des tâches</div>
-           {/* Butons de filtre */}
+          
+          {/* Boutons de filtre */}
           <div className="filter-buttons">
             <button onClick={() => setFilter('all')} className={filter === 'all' ? 'active' : ''}>
               Toutes
@@ -108,9 +106,10 @@ const App = () => {
               Terminées
             </button>
           </div>
+
           <div className="task-list-container">
             <TaskList
-              tasks={tasks}
+              tasks={filteredTasks}
               onDelete={deleteTask}
               onToggle={toggleComplete}
               onEdit={setEditingTask}
@@ -119,7 +118,7 @@ const App = () => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default App;
