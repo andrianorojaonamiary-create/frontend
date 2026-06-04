@@ -29,8 +29,8 @@ const App = () => {
   }, []);
 
   const getFilteredTasks = () => {
-    if (filter === 'active') return tasks.filter(task => !task.completed);
-    if (filter === 'completed') return tasks.filter(task => task.completed);
+    if (filter === 'active') return tasks.filter(t => t.completed === false);
+    if (filter === 'completed') return tasks.filter(t => t.completed === true);
     return tasks;
   };
 
