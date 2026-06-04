@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import TaskList from './composant/liste';   // adaptez selon votre chemin
-import TaskForm from './composant/form';    // adaptez selon votre chemin
+import TaskList from './composant/liste';   
+import TaskForm from './composant/form';    
 import './App.css';
 
 import logo from './assets/tableau.png'; 
@@ -13,6 +13,7 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [editingTask, setEditingTask] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState('all');
 
   useEffect(() => {
     fetch(API_URL)
@@ -26,6 +27,12 @@ const App = () => {
         setLoading(false);
       });
   }, []);
+
+  const getFilteredTasks = () => {
+    if (filter === 'active') return tasks.filter(task => !task.terminé);
+    if (filter === 'completed') return tasks.filter(task => task.terminé);
+    return tasks;
+  };
 
   const addTask = async (newTask) => {
     const response = await fetch(API_URL, {
@@ -70,35 +77,47 @@ const App = () => {
 
   return (
     <div className="app">
-    <header className="header">
-      <img src={logo} alt="Logo tâches" />
-      <h1>Gestionnaire des tâches</h1>
-    </header>
+      <header className="header">
+        <img src={logo} alt="Logo tâches" />
+        <h1>Gestionnaire des tâches</h1>
+      </header>
 
-    <div className="main-content">
-      {/* Colonne gauche : formulaire */}
-      <div className="form-col">
-        <div className="section-title"><img src={plus} alt="Ajout" />Ajouter une nouvelle tâche</div>
-        <TaskForm
-          onSubmit={addTask}
-          editingTask={editingTask}
-          onUpdate={updateTask}
-        />
-      </div>
-
-      {/* Colonne droite : liste */}
-      <div className="list-col">
-        <div className="section-title"><img src={liste} alt="Liste" />Liste des tâches</div>
-        <div className="task-list-container">
-          <TaskList
-            tasks={tasks}
-            onDelete={deleteTask}
-            onToggle={toggleComplete}
-            onEdit={setEditingTask}
+      <div className="main-content">
+        {/* Colonne gauche : formulaire */}
+        <div className="form-col">
+          <div className="section-title"><img src={plus} alt="Ajout" />Ajouter une nouvelle tâche</div>
+          <TaskForm
+            onSubmit={addTask}
+            editingTask={editingTask}
+            onUpdate={updateTask}
           />
         </div>
+
+        {/* Colonne droite : liste */}
+        <div className="list-col">
+          <div className="section-title"><img src={liste} alt="Liste" />Liste des tâches</div>
+           {/* Butons de filtre */}
+          <div className="filter-buttons">
+            <button onClick={() => setFilter('all')} className={filter === 'all' ? 'active' : ''}>
+              Toutes
+            </button>
+            <button onClick={() => setFilter('active')} className={filter === 'active' ? 'active' : ''}>
+              Actives
+            </button>
+            <button onClick={() => setFilter('completed')} className={filter === 'completed' ? 'active' : ''}>
+              Terminées
+            </button>
+          </div>
+          <div className="task-list-container">
+            <TaskList
+              tasks={tasks}
+              onDelete={deleteTask}
+              onToggle={toggleComplete}
+              onEdit={setEditingTask}
+            />
+          </div>
+        </div>
       </div>
-    </div>
     </div>
     );
 };

@@ -297,6 +297,35 @@ body {
   background: var(--danger);
 }
 
+/* Filtres */
+.filter-buttons {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.filter-buttons button {
+  background: var(--gray-medium);
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 2rem;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--text-light);
+}
+
+.filter-buttons button.active {
+  background: var(--primary);
+  color: white;
+}
+
+.filter-buttons button:hover:not(.active) {
+  background: var(--gray-light);
+}
 
 /* Responsive : sur mobile, plus de hauteur fixe, passage en colonne */
 @media (max-width: 768px) {
