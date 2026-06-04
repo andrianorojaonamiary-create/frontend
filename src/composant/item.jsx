@@ -1,7 +1,6 @@
 import React from 'react';
 
-import supprimer from '../assets/supprimer-1.png';
-import edit from '../assets/edit.png'; 
+import date from '../assets/date.png';
 
 const TaskItem = ({ task, onDelete, onToggle, onEdit }) => {
   const formattedDate = task.created_at
@@ -11,7 +10,7 @@ const TaskItem = ({ task, onDelete, onToggle, onEdit }) => {
   return (
     <div className="task-item">
       <div className="task-header">
-        <small className="task-date">{formattedDate}</small>
+        <small className="task-date"><img src={date} alt="Date" style={{width: '20px'}}/>{formattedDate}</small>
         {task.completed && <div className="completed-badge">Tache Terminé</div>}
         <input
           type="checkbox"
@@ -31,9 +30,9 @@ const TaskItem = ({ task, onDelete, onToggle, onEdit }) => {
       </div>
       <div className="task-footer">
         {!task.completed && (
-          <button onClick={() => onEdit(task)} className="btn-edit"><img src={edit} alt="Modifier"  style={{width: '20px'}}/> Modifier</button>
+          <button onClick={() => onEdit(task)} className="btn-edit"> Modifier</button>
         )}
-        <button onClick={() => onDelete(task.id)} className="btn-delete"><img src={supprimer} alt="Supprimer" style={{width: '20px'}}/> Supprimer</button>
+        <button onClick={() => onDelete(task.id)} className="btn-delete"> Supprimer</button>
       </div>
     </div>
   );
