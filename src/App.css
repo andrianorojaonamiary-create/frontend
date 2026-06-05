@@ -22,7 +22,8 @@
 }
 
 body {
-  background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3a 100%);
+  background: var(--text-white);
+  /*background: linear-gradient(135deg, #1a1a2e 0%, #2a1a3a 100%);*/
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   min-height: 100vh;
   color: var(--text-light);
