@@ -332,7 +332,7 @@ body {
 }
 
 /* Responsive : sur mobile, plus de hauteur fixe, passage en colonne */
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   body {
     padding: 1rem;
   }
